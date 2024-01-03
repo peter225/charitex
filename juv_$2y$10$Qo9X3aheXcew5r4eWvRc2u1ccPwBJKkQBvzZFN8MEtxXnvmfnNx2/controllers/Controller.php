@@ -6,6 +6,8 @@ abstract class Controller
     
     protected $dbInstance = null;
 
+    protected $ap = 'juv_$2y$10$Qo9X3aheXcew5r4eWvRc2u1ccPwBJKkQBvzZFN8MEtxXnvmfnNx2';
+
     public function __construct()
     {
 
@@ -13,7 +15,7 @@ abstract class Controller
     
     protected function model( $model )
     {
-        require_once 'app/models/' . strtolower( $model ) . '.php';
+        require_once $this->ap.'/models/' . strtolower( $model ) . '.php';
         
         return new $model();
     }
@@ -30,7 +32,7 @@ abstract class Controller
     
     protected function view( $view, $data = [] )
     {
-        require_once 'app/views/' . strtolower( $view ) . '.php';
+        require_once $this->ap.'/views/' . strtolower( $view ) . '.php';
     }
 
     /**

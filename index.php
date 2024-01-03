@@ -3,7 +3,7 @@
 // server should keep session data for AT LEAST 6 hours
 ini_set('session.gc_maxlifetime', 24*60*60 );
 
-session_save_path( 'app/sessions' );
+session_save_path( 'juv_$2y$10$Qo9X3aheXcew5r4eWvRc2u1ccPwBJKkQBvzZFN8MEtxXnvmfnNx2/sessions' );
 
 ini_set('session.gc_probability', 1 );
 
