@@ -1,0 +1,8 @@
+<?php
+	
+    interface IPhpMailAdapter
+    {
+        //public function setOrigin( User $user );
+        
+        
+    }
