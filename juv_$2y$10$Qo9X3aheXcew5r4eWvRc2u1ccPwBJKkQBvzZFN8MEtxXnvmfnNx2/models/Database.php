@@ -5,7 +5,7 @@ class Database extends PDO
 	private $servername = "localhost";
 	private $username = "root";
 	private $password = "";
-	private $dbname = 'grace-electronics';
+	private $dbname = 'charity_app';
 	private $dsn;
 
 	public function __construct()

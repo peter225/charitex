@@ -32,7 +32,7 @@ abstract class Controller
     
     protected function view( $view, $data = [] )
     {
-        require_once $this->ap.'/views/' . strtolower( $view ) . '.php';
+        require_once $this->ap . '/views/' . strtolower( $view ) . '.php';
     }
 
     /**

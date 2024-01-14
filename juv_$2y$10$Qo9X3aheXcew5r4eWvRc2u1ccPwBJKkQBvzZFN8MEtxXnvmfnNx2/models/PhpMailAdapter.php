@@ -10,7 +10,7 @@ class PHPMailAdapter
 {
 
 	// Define email verification function
-	public function sendRegistrationEmail($email, $reference) 
+	public function sendRegistrationEmail($email, $firstname) 
 	{
     	// Instantiate PHPMailer object
     	
@@ -49,9 +49,9 @@ class PHPMailAdapter
 			
 			$mail->Subject = 'Complete your registration';
 			
-			$mail->Body = 'Hello,This is your reference: '.$reference.'<br><br>
-							Please use your reference to complete  to complete your registration:<br><br><a href="'. $_ENV['BASE_URL'].'/Registration?email=' . $email . '&reference=' . $reference . 
-							'">Complete registration</a><br><br>Thank you,<br>Grace Electronics';
+			$mail->Body = 'Hello'.$firstname.'!<br><br>
+							Please use this link to set your password and complete your registration:<br><br><a href="'. $_ENV['BASE_URL'].'/login?email=' . $email .  
+							'">Complete registration</a><br><br>Thank you,<br>Charitex';
 
         // Send email
 			$mail->send();

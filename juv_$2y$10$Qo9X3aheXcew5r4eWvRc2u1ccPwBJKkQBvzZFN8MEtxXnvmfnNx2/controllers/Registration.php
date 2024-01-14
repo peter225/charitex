@@ -9,7 +9,7 @@ class Registration extends Controller
 
 	public function default()
 	{
-		$this->view('Home/registration');
+		$this->view('Registration/registration');
 		
 	}
 }

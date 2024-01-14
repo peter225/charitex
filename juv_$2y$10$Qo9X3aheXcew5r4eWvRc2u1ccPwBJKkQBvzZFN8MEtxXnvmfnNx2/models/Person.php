@@ -131,8 +131,8 @@ class Person
 
             $sql = '';
 
-            if( $this instanceof Student )
-                $sql = 'UPDATE user SET session_id = :sessionID WHERE email = :email';
+            if( $this instanceof Applicant )
+                $sql = 'UPDATE applicant SET session_id = :sessionID WHERE email = :email';
             if( '' == $sql )
                 throw new CustomException("Unrecognised role");
                 
@@ -185,7 +185,7 @@ class Person
     public function IDExists( $id )
     {
 
-        $stmt = $this->dbInstance->prepare( 'SELECT COUNT(customer_id) FROM customer WHERE customer_id = :ID' );
+        $stmt = $this->dbInstance->prepare( 'SELECT COUNT(customer_id) FROM applicant WHERE customer_id = :ID' );
 
         $stmt->execute( array(':ID'=>$id ) );
         
@@ -195,7 +195,7 @@ class Person
     public function sessionIDExists( $sessionID )
     {
 
-        $stmt = $this->dbInstance->prepare( 'SELECT COUNT(session_id) FROM customer WHERE session_id = :ID' );
+        $stmt = $this->dbInstance->prepare( 'SELECT COUNT(session_id) FROM applicant WHERE session_id = :ID' );
 
         $stmt->execute( array(':ID'=>$sessionID ) );
         
