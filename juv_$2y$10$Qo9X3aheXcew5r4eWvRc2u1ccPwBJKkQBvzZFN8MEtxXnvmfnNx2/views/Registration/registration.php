@@ -16,6 +16,8 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="../../assets/AdminLTE-master1/dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
+  <!-- Toastr -->
+  <link rel="stylesheet" href="../../assets/AdminLTE-master1/plugins/toastr/toastr.min.css">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition register-page">
@@ -30,7 +32,7 @@
 
       <form action="../../index.html" method="post">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="First name">
+          <input type="text" class="form-control" placeholder="First name" name="first_name">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -38,7 +40,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Last name">
+          <input type="text" class="form-control" placeholder="Last name" name="last_name">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -46,7 +48,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" class="form-control" placeholder="Email" name="email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -54,7 +56,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="phone" class="form-control" placeholder="Phone number">
+          <input type="phone" class="form-control" placeholder="Phone number" name="phone_no">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-phone"></span>
@@ -65,7 +67,7 @@
        
           <!-- /.col -->
           <div class="col-4">
-            <button type="button" id="register-btn"class="btn btn-primary btn-block">Register</button>
+            <button type="button" name="register-btn" id="register-btn"class="btn btn-primary btn-block">Register</button>
           </div>
           <!-- /.col -->
         </div>
@@ -81,11 +83,14 @@
 <!-- /.register-box -->
 
 <!-- jQuery -->
+
 <script src="../../assets/AdminLTE-master1/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="../../assets/AdminLTE-master1/assets/AdminLTE-master1/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../../assets/AdminLTE-master1/dist/js/adminlte.min.js"></script>
+<!-- Toastr -->
+<script src="../../assets/AdminLTE-master1/plugins/toastr/toastr.min.js"></script>
 
 <script src="assets/js/registration.js"></script>
 </body>

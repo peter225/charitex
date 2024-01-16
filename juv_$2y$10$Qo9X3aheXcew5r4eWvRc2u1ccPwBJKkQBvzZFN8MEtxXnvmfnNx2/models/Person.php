@@ -47,7 +47,35 @@ class Person
     
     public function setPassWord($pWord)
     {
-        $this->passWord = $pWord;
+        try
+        {
+            $this->passWord = $pWord;
+
+            $sql = '';
+
+            if( $this instanceof Applicant )
+                $sql = 'UPDATE applicant SET password = :psw WHERE email = :email';
+            if( '' == $sql )
+                throw new CustomException("Unrecognised role");
+                
+            $stmt = $this->dbInstance->prepare( $sql );
+
+            $stmt->execute( array(':psw'=>password_hash($this->passWord, PASSWORD_DEFAULT), ':email'=>$this->email) );
+
+            return ( $stmt->rowCount() == 1 );
+        }
+        catch (PDOException $e) 
+        {
+           throw new PDOException($e->getMessage() );
+        }
+        catch (CustomException $e) 
+        {
+           throw new CustomException( $e->getMessage() );
+        }
+        catch ( Exception $e) 
+        {
+           throw new Exception($e->getMessage() );    
+        }
     }
 
     public function getPassWord()

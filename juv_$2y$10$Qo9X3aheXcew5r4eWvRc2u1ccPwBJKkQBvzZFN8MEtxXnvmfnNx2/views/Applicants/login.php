@@ -28,18 +28,26 @@
 
   <div class="card">
     <div class="card-body register-card-body">
-      <p class="login-box-msg">Login</p>
+      <p class="login-box-msg">Register a new applicant</p>
 
       <form action="../../index.html" method="post">
+        
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="password" id="password" name="psw">
+          <input type="email" class="form-control" placeholder="Email" name="email">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="password" name="psw">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
         </div>
-        
         
        
           <!-- /.col -->
@@ -52,7 +60,7 @@
 
       
 
-      
+      <a href="login.html" class="text-center">I am already registered</a>
     </div>
     <!-- /.form-box -->
   </div><!-- /.card -->
@@ -68,10 +76,7 @@
 <script src="../../assets/AdminLTE-master1/dist/js/adminlte.min.js"></script>
 <!-- Toastr -->
 <script src="../../assets/AdminLTE-master1/plugins/toastr/toastr.min.js"></script>
-<script>
-    var email = '<?=$_GET['email']?>';
-     
-  </script>
-<script src="assets/js/login.js"></script>
+
+<script src="assets/js/login1.js"></script>
 </body>
 </html>

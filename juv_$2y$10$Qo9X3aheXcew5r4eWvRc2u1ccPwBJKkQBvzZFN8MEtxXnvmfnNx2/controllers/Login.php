@@ -5,13 +5,17 @@
 class Login extends Controller
 {
 	
+	public function default()
+	{
+		$this->view('Registration/login');
+		
+	}
 	
-	
-	public function loginStudent()
+	public function loginApplicant()
 	{
 		try 
 		{
-			$email = $psw = $role = "";
+			$email = $psw = "";
 
 			if(! isset($_POST['login-btn']))
 			{
@@ -33,39 +37,37 @@ class Login extends Controller
     		if( "" == $email || "" == $psw )
         		throw new CustomException("Enter your email and/or passsword");
 
-            if( isset($_POST['role']))
-                $role = $_POST['role'];
+            
 
 
             
 
-    		  $student = $this->model('Student');
+    		  $applicant = $this->model('Applicant');
 
             
 
-            if( null == $student )
+            if( null == $applicant )
                 throw new CustomException("Unkown role detected");
 
             //$passwordHash = password_hash( $psw, PASSWORD_DEFAULT );
             //var_dump( $passwordHash );
 //throw new CustomException($passwordHash);
-            $student->setDBInstance( $this->getDBInstance() );
+            $applicant->setDBInstance( $this->getDBInstance() );
 
-            $student->setEmail( $email );
+            $applicant->setEmail( $email );
 
-            if( ! $student->passwordVerify($psw) )
-                throw new CustomException( "Unkown user" );
+            $applicant->setPassWord($psw);
         	
         	$_SESSION['sessionID'] = Person::generateRandomNumber( 9 );
             //var_dump($_SESSION['sessionID']);
-        	$student->setSessionID( $_SESSION['sessionID'] );
+        	$applicant->setSessionID( $_SESSION['sessionID'] );
 
-            if($student instanceof Student)
+            if($applicant instanceof Applicant)
             {
                 
-                $_SESSION['studentID'] = $student->getEmail();
+                $_SESSION['applicantID'] = $applicant->getEmail();
 
-                $success['dashboard'] = 'Students';
+                $success['dashboard'] = 'Applicants';
 
                 $success['message'] =  'redirecting, please wait!!';
 

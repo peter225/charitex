@@ -9,23 +9,25 @@ class Applicants extends Controller
 		{
 			if( ! isset( $_SESSION['applicantID'] ) || ! isset( $_SESSION['sessionID'] ) )
 			{
-				$this->view('Register/login');
+				$this->view('Applicants/login');
 				return;
 			}
 
 			$applicant = $this->model('Applicant');
 
             $applicant->setDBInstance( $this->getDBInstance() );
-            $applicant->setEmail($_SESSION['studentID']);
+
+            $applicant->setEmail($_SESSION['applicantID']);
+
 			$applicant->loadProfile();
 
 			if( $applicant->getSessionID() != $_SESSION['sessionID'] )
 			{
-				$this->view('students/login');
+				$this->view('Applicants/login');
 				return;
 			}
 
-			$this->view( 'students/dashboard', ['Student'=>$applicant] );
+			$this->view( 'Applicants/dashboard', ['applicant'=>$applicant] );
 		}
 		catch( PDOException $e )
 		{
@@ -52,9 +54,9 @@ class Applicants extends Controller
     {
         try 
 		{
-			$firstname = $lastname = $email =  '';
+			$firstname = $lastname = $email =  $phoneNo = '';
 
-			if( ! isset($_POST['register_btn']) )
+			if( ! isset($_POST['register-btn']) )
         	throw new CustomException("Ensure to use the register student button");
 
 
@@ -86,12 +88,21 @@ class Applicants extends Controller
                 
             if( '' == $email )
                 throw new CustomException("enter email");
+
+            if( isset($_POST['phone_no'] ) )
+            {
+                $phoneNo = trim( $_POST['phone_no'] );
+            }
+                    
+            if( '' == $phoneNo )
+                throw new CustomException("enter phone number");
             
             
-                
+            $applicant = $this->model('Applicant');
 
-			$applicant = $this->model('Applicant');
+            $mailAdapter = $this->model('PhpMailAdapter');
 
+            $logAdapter = $this->model('CustomLogAdapter');
 
 			$applicant->setDBInstance( $this->getDBInstance() );
         
@@ -104,25 +115,37 @@ class Applicants extends Controller
             
             $applicant->setEmail($email);
 
+            $applicant->setPhoneNumber($phoneNo);
+
             
 			
 
 			//$questionObject->setQuestionID($question_id);
             
         	
-            if(!$this->registerApplicant($applicant))
-                throw new CustomException('registration not successful');
+            if($this->registerApplicant($applicant))
+            {
+                $mailAdapter->sendRegistrationEmail($applicant->getEmail(),$applicant->getFirstName());
+            }
+            else
+            {
+                //throw new CustomException('registration not successful');
+                $logAdapter->logInfo('registration not successful');
+            }
+                
 
             $_SESSION['sessionID'] = Person::generateRandomNumber( 9 );
             //var_dump($_SESSION['sessionID']);
             $applicant->setSessionID( $_SESSION['sessionID'] );
+
+            
 
 			if($applicant instanceof Applicant)
             {
                 
                 $_SESSION['applicantID'] = $applicant->getEmail();
                 
-                $success['message'] =  'Applicant registered successfully.';
+                $success['message'] =  'Thanks! An email has been sent to complete your registration';
 
                 $success['title'] =  'Success';
 
@@ -201,16 +224,15 @@ class Applicants extends Controller
             $sql = "INSERT INTO applicant SET email = :email, 
                                          firstname = :f_name, 
                                          lastname = :l_name, 
-                                         telephone = :phone,
-                                         password=:psw";
+                                         telephone = :phone
+                                         ";
 
             $stmt = $this->dbInstance->prepare($sql);
             $stmt->execute(array(
                                     ':email'=>$applicant->getEmail(),
                                     ':f_name'=>$applicant->getFirstName(),
                                     ':l_name'=>$applicant->getLastName(),
-                                    ':phone'=>$applicant->getPhoneNumber(),
-                                    ':psw'=>password_hash($applicant->getPassWord(), PASSWORD_DEFAULT)
+                                    ':phone'=>$applicant->getPhoneNumber()
                 ));
             
                 return ( $stmt->rowCount() >0 );
