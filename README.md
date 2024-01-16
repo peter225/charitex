@@ -1,1 +1,1 @@
-This is a web-based application built for Grass to Grace technologies. It enables prospective students to register for desired courses in the field of electronics.
+This is a web-based application built by Adeyemo Peter. It's a custom charity application that enables applicants to request for financial aids and grants for critical conditions.
